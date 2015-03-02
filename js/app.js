@@ -5,6 +5,7 @@ function kittehClicker() {
 	console.log('The kitteh was clicked!');
 	score++;
 	scoreBoard.text('Score: ' + score);
+	$('#kitteh').effect("shake");
 }
 
 $('#kitteh').click(kittehClicker);
