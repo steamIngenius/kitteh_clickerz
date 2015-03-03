@@ -1,6 +1,6 @@
 .black {
 	background-color: black;
-	height: 100px;
+	width: 100%;
 }
 
 .red {
@@ -8,10 +8,11 @@
 	height: 100px;
 }
 
-#scoreBoard1 {
-	text-align: right;
-}
-
 .nameplate {
 	text-align: center;
+}
+
+#kitteh {
+	display: block;
+	margin: 0 auto;
 }
