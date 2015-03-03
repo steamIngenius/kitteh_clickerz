@@ -1,17 +1,22 @@
 var score1 = 0;
 var score2 = 0;
 
+// add our meows to the page by inserting html
 $('<audio id="meow1" src="lib/audio/1.mp3" type="audio/mpeg"></audio>').appendTo('body');
 $('<audio id="meow2" src="lib/audio/2.mp3" type="audio/mpeg"></audio>').appendTo('body');
 $('<audio id="meow3" src="lib/audio/3.mp3" type="audio/mpeg"></audio>').appendTo('body');
 $('<audio id="meow4" src="lib/audio/4.mp3" type="audio/mpeg"></audio>').appendTo('body');
 
 $('#kitteh1').click(function () {
+	// log this event
 	console.log('The kitteh was clicked!');
+	// score!
 	score1++;
 	$('#scoreBoard1').text('Score: ' + score1);
+	// visual feedback
 	$('#kitteh1').effect("shake");
-	var sound = Math.floor(Math.random()*4)+1;
+	// audio feedback
+	var sound = Math.floor(Math.random()*4)+1; // random cat sound
 	$('#meow'+sound)[0].play();
 });
 
