@@ -3,18 +3,41 @@ var Kitteh = function(name) {
 	this.name = name;
 };
 
+function updateUI() {
+	currentKitteh = $('#currentKitteh').val();
+	$('#scoreboard').text('Score: ' + kittehs[currentKitteh].score)
+	$('#kittehName').text(kittehs[currentKitteh].name);
+}
+
 // add our meows to the page by inserting html
 $('<audio id="meow1" src="lib/audio/1.mp3" type="audio/mpeg"></audio>').appendTo('body');
 $('<audio id="meow2" src="lib/audio/2.mp3" type="audio/mpeg"></audio>').appendTo('body');
 $('<audio id="meow3" src="lib/audio/3.mp3" type="audio/mpeg"></audio>').appendTo('body');
 $('<audio id="meow4" src="lib/audio/4.mp3" type="audio/mpeg"></audio>').appendTo('body');
 
-var kittehs = [];
-kittehs.push(new Kitteh("Paul"));
-kittehs.push(new Kitteh("John"));
-kittehs.push(new Kitteh("George"));
-kittehs.push(new Kitteh("Ringo"));
+function randomNames(count) {
+	var names = [];
+	$.ajax({
+		url: 'http://api.randomuser.me/?results='+count,
+		dataType: 'json',
+		async: false,
+		success: function(data) {
+			console.log(data);
+			names = data.results;
+		}
+	});
+	return names;
+}
 
+function createKittehs(numKittehs) {
+	kittehs = [];
+	console.log("numKittehs = "+numKittehs);
+	var kittehNames = randomNames(numKittehs);
+	console.log(kittehNames);
+	for (var i = 0; i < numKittehs; i++) {
+		kittehs.push(new Kitteh(kittehNames[i].user.name.first));
+	}
+}
 
 $('#kitteh').click(function () {
 	// log this event
@@ -32,6 +55,14 @@ $('#kitteh').click(function () {
 });
 
 $('#currentKitteh').change( function() {
-	var currentKitteh = $('#currentKitteh').val();
-	$('#scoreboard').text('Score: ' + kittehs[currentKitteh].score)
+	updateUI();
+});
+
+$('#document').ready( function() {
+	// make some kittehs
+	// alert with select your number of kittehs
+	numKittehs = prompt("How many kittehs would you like?", 5);
+	createKittehs(numKittehs);
+	updateUI();
+	console.log("The page has loaded.");
 });
