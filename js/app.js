@@ -5,8 +5,14 @@ var Kitteh = function(name) {
 
 var kittehs = [];
 
+function setupMenu() {
+	for (var i = 0; i < kittehs.length; i++) {
+		$('<option>'+i+'</option>').appendTo($('#currentKitteh'));
+	}
+}
+
 function updateUI() {
-	currentKitteh = 0; // $('#currentKitteh').val();
+	currentKitteh = $('#currentKitteh').val();
 	$('#scoreboard').text('Score: ' + kittehs[currentKitteh].score)
 	$('#kittehName').text(kittehs[currentKitteh].name);
 }
@@ -22,12 +28,12 @@ function createKittehs(numKittehs) {
 	$.ajax({
 		url: 'http://api.randomuser.me/?results='+numKittehs,
 		dataType: 'json',
-		async: false,
 		success: function(data) {
 			console.log(data);
 			for (var i = 0; i < numKittehs; i++) {
 				kittehs.push(new Kitteh(data.results[i].user.name.first));
 			}
+			setupMenu();
 			updateUI();
 		}
 	});
