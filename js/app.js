@@ -1,9 +1,12 @@
-var Kitteh = function(name) {
+var Kitteh = function(name, gender, hooman) {
 	this.score = 0;
 	this.name = name;
+	this.gender = gender;
+	this.hooman = hooman;
 };
 
 var kittehs = [];
+var currentKitteh;
 
 function setupMenu() {
 	for (var i = 0; i < kittehs.length; i++) {
@@ -13,8 +16,11 @@ function setupMenu() {
 
 function updateUI() {
 	currentKitteh = $('#currentKitteh').val();
-	$('#scoreboard').text('Score: ' + kittehs[currentKitteh].score)
-	$('#kittehName').text(kittehs[currentKitteh].name);
+	$('#scoreboard').text('Score: ' + kittehs[currentKitteh].score);
+	$('#kittehName').text('Name: ' + kittehs[currentKitteh].name);
+	$('#kittehGender').text('Gender: ' + kittehs[currentKitteh].gender);
+	$('#kittehHooman').text('Slave hooman:');
+	$('<br><img src="' + kittehs[currentKitteh].hooman + '">').appendTo($('#kittehHooman'));
 }
 
 // add our meows to the page by inserting html
@@ -31,7 +37,11 @@ function createKittehs(numKittehs) {
 		success: function(data) {
 			console.log(data);
 			for (var i = 0; i < numKittehs; i++) {
-				kittehs.push(new Kitteh(data.results[i].user.name.first));
+				kittehs.push(new Kitteh(
+					data.results[i].user.name.first,
+					data.results[i].user.gender,
+					data.results[i].user.picture.thumbnail
+					));
 			}
 			setupMenu();
 			updateUI();
@@ -63,6 +73,5 @@ $('#document').ready( function() {
 	// alert with select your number of kittehs
 	numKittehs = prompt("How many kittehs would you like?", 5);
 	createKittehs(numKittehs);
-	$('#currentKitteh').selectable();
 	console.log("The page has loaded.");
 });
