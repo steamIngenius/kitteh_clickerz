@@ -26,6 +26,6 @@
 	text-align: center;
 }
 
-#scoreboard {
-	margin: 0 auto;
+#score {
+	font-size: 18px;
 }
