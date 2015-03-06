@@ -10,13 +10,20 @@ var currentKitteh;
 
 function setupMenu() {
 	for (var i = 0; i < kittehs.length; i++) {
-		$('<option>'+i+'</option>').appendTo($('#currentKitteh'));
+		$('<li class="ui-widget-content" id="'+i+'">'+kittehs[i].name+'</li>').appendTo($('#currentKitteh'));
 	}
+	$('#currentKitteh').selectable({
+		selected: function(event, ui) {
+			// console.log(event);
+			console.log(ui);
+			currentKitteh = parseInt(ui.selected.id);
+			updateUI();
+		}
+	});
 }
 
 function updateUI() {
-	currentKitteh = $('#currentKitteh').val();
-	$('#scoreboard').text('Score: ' + kittehs[currentKitteh].score);
+	$('#score').text('Score: ' + kittehs[currentKitteh].score);
 	$('#kittehName').text('Name: ' + kittehs[currentKitteh].name);
 	$('#kittehGender').text('Gender: ' + kittehs[currentKitteh].gender);
 	$('#kittehHooman').text('Slave hooman:');
@@ -44,28 +51,22 @@ function createKittehs(numKittehs) {
 					));
 			}
 			setupMenu();
-			updateUI();
 		}
 	});
 }
 
 $('#kitteh').click(function () {
 	// log this event
-	var currentKitteh = $('#currentKitteh').val();
 	var kitteh = kittehs[currentKitteh];
 	console.log(kittehs[currentKitteh]);
 	// score!
 	kitteh.score++;
-	$('#scoreboard').text('Score: ' + kitteh.score);
+	$('#score').text('Score: ' + kitteh.score);
 	// visual feedback
 	$('#kitteh').effect("shake");
 	// audio feedback
 	var sound = Math.floor(Math.random()*4)+1; // random cat sound
 	$('#meow'+sound)[0].play();
-});
-
-$('#currentKitteh').change( function() {
-	updateUI();
 });
 
 $('#document').ready( function() {
