@@ -19,5 +19,13 @@
 
 #currentKitteh .ui-selecting { background: #FECA40; }
 #currentKitteh .ui-selected { background: #F39814; color: white; }
-#currentKitteh { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-#currentKitteh li { margin: 3px; padding: 0.4em; }
+#currentKitteh { list-style-type: none; margin: 0 auto; padding: 0; width: 60%;  }
+#currentKitteh li { margin: 3px; padding: 0.4em; text-align: center; background-position: 100%; padding-right: 0.6em; }
+
+#gameUI {
+	text-align: center;
+}
+
+#scoreboard {
+	margin: 0 auto;
+}

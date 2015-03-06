@@ -24,7 +24,6 @@ function setupMenu() {
 
 function updateUI() {
 	$('#score').text('Score: ' + kittehs[currentKitteh].score);
-	$('#kittehName').text('Name: ' + kittehs[currentKitteh].name);
 	$('#kittehGender').text('Gender: ' + kittehs[currentKitteh].gender);
 	$('#kittehHooman').text('Slave hooman:');
 	$('<br><img src="' + kittehs[currentKitteh].hooman + '">').appendTo($('#kittehHooman'));
