@@ -60,12 +60,15 @@ $('document').ready(function() {
 				url: 'http://api.randomuser.me/?results='+numKittehs,
 				dataType: 'json',
 				success: function(data) {
-					// hand data to model for kitteh creation durint initialization
+					// hand data to model for kitteh creation during initialization
 					modelComponent.init(data);
 				}
 			});
 		},
-		setCurrentKitteh: function() {}
+		setCurrentKitteh: function(kitteh) {
+			modelComponent.setCurrentKitteh(kitteh);
+			viewCurrentKitteh.update(kitteh);
+		}
 	};
 
 	octopus.init(); // get this party started
