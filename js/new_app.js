@@ -8,12 +8,19 @@ $('document').ready(function() {
 
 			// create kitteh objects from data and add to the kittehs array
 			for (var i = 0; i < data.results.length; i++) {
-				kittehs.push(new Kitteh(
-					data.results[i].user.name.first,
-					data.results[i].user.gender,
-					data.results[i].user.picture.thumbnail
-				));
+				this.kittehs.push({
+					score: 0,
+					name: data.results[i].user.name.first,
+					gender: data.results[i].user.gender,
+					hooman: data.results[i].user.picture.thumbnail
+				});
 			}
+		},
+		getCurrentKitteh: function() {
+			return this.currentKitteh;
+		},
+		setCurrentKitteh: function(kitteh) {
+			this.currentKitteh = kitteh;
 		}
 	};
 
@@ -32,7 +39,6 @@ $('document').ready(function() {
 					// console.log(event);
 					// console.log(ui);
 					octopus.setCurrentKitteh(parseInt(ui.selected.id));
-					updateUI();
 				}
 			});
 		},
@@ -41,7 +47,7 @@ $('document').ready(function() {
 
 	var viewCurrentKitteh = {
 		init: function() {
-			this.currentKitteh = $('#currentKitteh');
+			this.currentKitteh = octopus.getCurrentKitteh();
 		},
 		render: function() {}
 	};
@@ -65,9 +71,13 @@ $('document').ready(function() {
 				}
 			});
 		},
+		// pass data 
 		setCurrentKitteh: function(kitteh) {
 			modelComponent.setCurrentKitteh(kitteh);
-			viewCurrentKitteh.update(kitteh);
+			viewCurrentKitteh.render();
+		},
+		getCurrentKitteh: function () {
+			return modelComponent.getCurrentKitteh();
 		}
 	};
 
