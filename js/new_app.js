@@ -16,10 +16,10 @@ $('document').ready(function() {
 				});
 			}
 			console.log(this);
-			viewKittehs.init(this.kittehs); // this shouldn't be called from the model - refactor to the Octopus
+			return this.kittehs; // return the list of kittehs to the Octopus so he can pass it to the proper view
 		},
 		getCurrentKitteh: function() {
-			return this.kittehs[currentKitteh];
+			return this.kittehs[this.currentKitteh];
 		},
 		setCurrentKitteh: function(kitteh) {
 			this.currentKitteh = kitteh;
@@ -29,14 +29,14 @@ $('document').ready(function() {
 /*** VIEWS ***/
 	var viewKittehs = {
 		init: function(kittehs) {
-			var kittehList = $('#kittehList');
+			this.kittehList = $('#kittehList');
+			this.kittehs = kittehs;
 
 			// build our selectable list of kitteh names
-			for (var i = 0; i < kittehs.length; i++) {
-				$('<li class="ui-widget-content" id="'+i+'">'+kittehs[i].name+'</li>').appendTo(kittehList);
-			}
+			this.render();
 
-			$('#kittehList').selectable({
+			// make the list selectable and attach Octopus for handling select event
+			$(this.kittehList).selectable({
 				selected: function(event, ui) {
 					// console.log(event);
 					// console.log(ui);
@@ -44,18 +44,27 @@ $('document').ready(function() {
 				}
 			});
 		},
-		render: function() {}
+		render: function() {
+			for (var i = 0; i < this.kittehs.length; i++) {
+				$('<li class="ui-widget-content" id="'+i+'">'+this.kittehs[i].name+'</li>').appendTo(this.kittehList);
+			}
+		}
 	};
 
 	var viewCurrentKitteh = {
 		init: function() {
 			this.currentKitteh = octopus.getCurrentKitteh();
+			// event handler for clicking the kitteh
+			// call my render
 		},
 		render: function() {}
 	};
 
 	var viewScoreboard = {
-		init: function() {},
+		init: function() {
+			// get current kitteh info
+			// call my render to show info
+		},
 		render: function() {}
 	};
 
@@ -69,7 +78,11 @@ $('document').ready(function() {
 				dataType: 'json',
 				success: function(data) {
 					// hand data to model for kitteh creation during initialization
-					modelComponent.init(data);
+					viewKittehs.init(modelComponent.init(data));
+					// initiallize our current kitteh
+					viewCurrentKitteh.init();
+					// initiallize our scoreboard
+					viewScoreboard.init();
 				}
 			});
 		},
