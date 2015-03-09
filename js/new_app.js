@@ -15,9 +15,11 @@ $('document').ready(function() {
 					hooman: data.results[i].user.picture.thumbnail
 				});
 			}
+			console.log(this);
+			viewKittehs.init(this.kittehs); // this shouldn't be called from the model - refactor to the Octopus
 		},
 		getCurrentKitteh: function() {
-			return this.currentKitteh;
+			return this.kittehs[currentKitteh];
 		},
 		setCurrentKitteh: function(kitteh) {
 			this.currentKitteh = kitteh;
@@ -27,11 +29,11 @@ $('document').ready(function() {
 /*** VIEWS ***/
 	var viewKittehs = {
 		init: function(kittehs) {
-			this.kittehList = $('#kittehList');
+			var kittehList = $('#kittehList');
 
 			// build our selectable list of kitteh names
 			for (var i = 0; i < kittehs.length; i++) {
-				$('<li class="ui-widget-content" id="'+i+'">'+kittehs[i].name+'</li>').appendTo($('#kittehList'));
+				$('<li class="ui-widget-content" id="'+i+'">'+kittehs[i].name+'</li>').appendTo(kittehList);
 			}
 
 			$('#kittehList').selectable({
