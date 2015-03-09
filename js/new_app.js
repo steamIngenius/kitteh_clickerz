@@ -23,6 +23,9 @@ $('document').ready(function() {
 		},
 		setCurrentKitteh: function(kitteh) {
 			this.currentKitteh = kitteh;
+		},
+		click: function() {
+			this.kittehs[this.currentKitteh].score++;
 		}
 	};
 
@@ -40,24 +43,37 @@ $('document').ready(function() {
 				selected: function(event, ui) {
 					// console.log(event);
 					// console.log(ui);
-					octopus.setCurrentKitteh(parseInt(ui.selected.id));
+					octopus.setCurrentKitteh(parseInt(ui.selected.dataset.id));
 				}
 			});
 		},
 		render: function() {
 			for (var i = 0; i < this.kittehs.length; i++) {
-				$('<li class="ui-widget-content" id="'+i+'">'+this.kittehs[i].name+'</li>').appendTo(this.kittehList);
+				$('<li class="ui-widget-content" data-id="'+i+'">'+this.kittehs[i].name+'</li>').appendTo(this.kittehList);
 			}
 		}
 	};
 
 	var viewCurrentKitteh = {
 		init: function() {
-			this.currentKitteh = octopus.getCurrentKitteh();
-			// event handler for clicking the kitteh
-			// call my render
+			// get some kitteh images from the Cat API http://thecatapi.com/
+			// add these images to the dom and hide them
+			// grab dom element for the kitteh
+			this.kittehClick = $('#kitteh');
+			// set up event handler for clicking
+			this.kittehClick.click(function() {
+				octopus.click();
+				viewCurrentKitteh.shake();
+			});
 		},
-		render: function() {}
+		shake: function() {
+			this.kittehClick.effect('shake');
+		},
+		render: function(kitteh) {
+			// $("#tab > div > div") - reference for grabbing child divs for an id
+			// hide all the images then show the correct one
+			// animate this with jQuery UI
+		}
 	};
 
 	var viewScoreboard = {
@@ -89,11 +105,12 @@ $('document').ready(function() {
 		// pass data 
 		setCurrentKitteh: function(kitteh) {
 			modelComponent.setCurrentKitteh(kitteh);
-			viewCurrentKitteh.render();
+			viewCurrentKitteh.render(kitteh);
 		},
 		getCurrentKitteh: function () {
 			return modelComponent.getCurrentKitteh();
-		}
+		},
+		click: function() {}
 	};
 
 	octopus.init(); // get this party started
