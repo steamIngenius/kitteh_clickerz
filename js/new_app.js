@@ -158,6 +158,21 @@ $('document').ready(function() {
 		}
 	};
 
+/*** AUDIO ***/
+	var kittehAudio = {
+		init: function() {
+			// add our meows to the page by inserting html
+			$('<audio id="meow1" src="lib/audio/1.mp3" type="audio/mpeg"></audio>').appendTo('body');
+			$('<audio id="meow2" src="lib/audio/2.mp3" type="audio/mpeg"></audio>').appendTo('body');
+			$('<audio id="meow3" src="lib/audio/3.mp3" type="audio/mpeg"></audio>').appendTo('body');
+			$('<audio id="meow4" src="lib/audio/4.mp3" type="audio/mpeg"></audio>').appendTo('body');
+		},
+		meow: function() {
+			var sound = Math.floor(Math.random()*4)+1; // random cat sound
+			$('#meow'+sound)[0].play();	
+		}
+	};
+
 /*** OCTOPUS ***/
 	var octopus = {
 		init: function() {
@@ -175,6 +190,8 @@ $('document').ready(function() {
 					viewScoreboard.init();
 				}
 			});
+
+			kittehAudio.init();
 		},
 		// pass data 
 		setCurrentKitteh: function(kitteh) {
@@ -186,6 +203,7 @@ $('document').ready(function() {
 			return modelComponent.getCurrentKitteh();
 		},
 		click: function() {
+			kittehAudio.meow();
 			modelComponent.click();
 			viewCurrentKitteh.shake();
 			viewScoreboard.render();
