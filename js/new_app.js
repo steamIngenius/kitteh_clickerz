@@ -10,7 +10,7 @@ $('document').ready(function() {
 			for (var i = 0; i < data.results.length; i++) {
 				this.kittehs.push({
 					score: 0,
-					name: data.results[i].user.name.first,
+					name: data.results[i].user.name.first.capitalizeFirstLetter(),
 					gender: data.results[i].user.gender,
 					hooman: data.results[i].user.picture.thumbnail
 				});
@@ -192,6 +192,10 @@ $('document').ready(function() {
 			});
 
 			kittehAudio.init();
+
+			String.prototype.capitalizeFirstLetter = function() {
+    			return this.charAt(0).toUpperCase() + this.slice(1);
+			}
 		},
 		// pass data 
 		setCurrentKitteh: function(kitteh) {
