@@ -12,6 +12,14 @@
 	text-align: center;
 }
 
+.hidden {
+	display: none
+}
+
+.visible {
+	display: block;
+}
+
 #kitteh {
 	display: block;
 	margin: 0 auto;

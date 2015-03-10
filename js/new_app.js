@@ -55,15 +55,36 @@ $('document').ready(function() {
 	};
 
 	var viewCurrentKitteh = {
-		init: function() {
+		init: function(numKittehs) {
 			// get some kitteh images from the Cat API http://thecatapi.com/
 			// add these images to the dom and hide them
 			$.ajax({
 				type: "GET",
-				url: "http://thecatapi.com/api/images/get?format=xml&results_per_page=10&size=small&type=gif",
+				url: "http://thecatapi.com/api/images/get?format=xml&results_per_page=" +
+					numKittehs +
+					"&size=med&type=gif",
 				dataType: "xml",
+				/* xhrFields: {
+					withCredentials: true,
+				}, */
 				success: function(data) {
-					console.log(data);
+					console.log(data); // for checking response
+					// build our kitteh display area with hidden images
+					// use data-id to show/hide the correct kitteh
+					$(data).find('url').each( function(index) {
+						// console.log($(this).text());
+						$('<img class="hidden" data-id="'+index+'" src="'+$(this).text()+'" length="300" width="300">').appendTo($('#currentKitteh > div'));
+					});
+
+					// grab dom element for the kitteh
+					viewCurrentKitteh.kittehClick = $('#currentKitteh > div > img');
+					// console.log(viewCurrentKitteh.kittehClick);
+					// set up event handler for clicking
+					viewCurrentKitteh.kittehClick.click(function() {
+						octopus.click();
+					});
+
+					viewCurrentKitteh.render(0);
 				}
 			});
 
@@ -82,13 +103,6 @@ $('document').ready(function() {
 			} */
 
 
-			// grab dom element for the kitteh
-			this.kittehClick = $('#kitteh');
-			// set up event handler for clicking
-			this.kittehClick.click(function() {
-				octopus.click();
-				viewCurrentKitteh.shake();
-			});
 		},
 		shake: function() {
 			this.kittehClick.effect('shake');
@@ -97,6 +111,17 @@ $('document').ready(function() {
 			// $("#tab > div > div") - reference for grabbing child divs for an id
 			// hide all the images then show the correct one
 			// animate this with jQuery UI
+			var kittehs = $('#currentKitteh > div > img');
+			// console.log(kittehs);
+			kittehs.each(function(index) {
+				if (index === kitteh) {
+					$(this).removeClass('hidden');
+					$(this).addClass('visible');
+				} else {
+					$(this).removeClass('visible');
+					$(this).addClass('hidden');
+				}
+			});
 		},
 		createCORSRequest: function (method, url) {
 			var xhr = new XMLHttpRequest();
@@ -137,7 +162,7 @@ $('document').ready(function() {
 					// hand data to model for kitteh creation during initialization
 					viewKittehs.init(modelComponent.init(data));
 					// initiallize our current kitteh
-					viewCurrentKitteh.init();
+					viewCurrentKitteh.init(numKittehs);
 					// initiallize our scoreboard
 					viewScoreboard.init();
 				}
@@ -151,7 +176,9 @@ $('document').ready(function() {
 		getCurrentKitteh: function () {
 			return modelComponent.getCurrentKitteh();
 		},
-		click: function() {}
+		click: function() {
+			viewCurrentKitteh.shake();
+		}
 	};
 
 	octopus.init(); // get this party started
