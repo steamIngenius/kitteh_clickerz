@@ -123,6 +123,7 @@ $('document').ready(function() {
 				}
 			});
 		},
+		// this function is unused - it's here for posterity and future reference
 		createCORSRequest: function (method, url) {
 			var xhr = new XMLHttpRequest();
 		  	if ("withCredentials" in xhr) {
@@ -146,8 +147,15 @@ $('document').ready(function() {
 		init: function() {
 			// get current kitteh info
 			// call my render to show info
+			this.render();
 		},
-		render: function() {}
+		render: function() {
+			var kitteh = octopus.getCurrentKitteh();
+			$('#score').text('Score: ' + kitteh.score);
+			$('#kittehGender').text('Gender: ' + kitteh.gender);
+			$('#kittehHooman').text('Slave hooman:');
+			$('<br><img src="' + kitteh.hooman + '">').appendTo($('#kittehHooman'));
+		}
 	};
 
 /*** OCTOPUS ***/
@@ -172,12 +180,15 @@ $('document').ready(function() {
 		setCurrentKitteh: function(kitteh) {
 			modelComponent.setCurrentKitteh(kitteh);
 			viewCurrentKitteh.render(kitteh);
+			viewScoreboard.render();
 		},
 		getCurrentKitteh: function () {
 			return modelComponent.getCurrentKitteh();
 		},
 		click: function() {
+			modelComponent.click();
 			viewCurrentKitteh.shake();
+			viewScoreboard.render();
 		}
 	};
 
