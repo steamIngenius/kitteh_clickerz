@@ -6,6 +6,8 @@
 .red {
 	background-color: red;
 	height: 100px;
+	line-height: 100px;
+	text-align: center;
 }
 
 .nameplate {
@@ -18,6 +20,20 @@
 
 .visible {
 	display: block;
+}
+
+.title {
+	font-family: 'Luckiest Guy', cursive;
+	font-size: 60px;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.premium {
+	font-family: 'Pinyon Script', cursive;
+	font-size: 40px;
+	color: silver;
+	text-shadow: 1px 1px #3D3D3D;
 }
 
 #kitteh {
