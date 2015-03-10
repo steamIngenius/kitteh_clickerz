@@ -58,6 +58,30 @@ $('document').ready(function() {
 		init: function() {
 			// get some kitteh images from the Cat API http://thecatapi.com/
 			// add these images to the dom and hide them
+			$.ajax({
+				type: "GET",
+				url: "http://thecatapi.com/api/images/get?format=xml&results_per_page=10&size=small&type=gif",
+				dataType: "xml",
+				success: function(data) {
+					console.log(data);
+				}
+			});
+
+			/* var url = "http://thecatapi.com/api/images/get?format=xml&results_per_page=10&size=small&type=jpg"
+
+			var xhr = this.createCORSRequest('GET', url);
+			xhr.onload = function(data) {
+				console.log(data);
+			};
+			xhr.send();
+
+			console.log(xhr);
+
+			if (!xhr) {
+			  throw new Error('CORS not supported');
+			} */
+
+
 			// grab dom element for the kitteh
 			this.kittehClick = $('#kitteh');
 			// set up event handler for clicking
@@ -73,6 +97,23 @@ $('document').ready(function() {
 			// $("#tab > div > div") - reference for grabbing child divs for an id
 			// hide all the images then show the correct one
 			// animate this with jQuery UI
+		},
+		createCORSRequest: function (method, url) {
+			var xhr = new XMLHttpRequest();
+		  	if ("withCredentials" in xhr) {
+		    	// Check if the XMLHttpRequest object has a "withCredentials" property.
+		    	// "withCredentials" only exists on XMLHTTPRequest2 objects.
+		    	xhr.open(method, url, true);
+		  	} else if (typeof XDomainRequest != "undefined") {
+			    // Otherwise, check if XDomainRequest.
+			    // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+			    xhr = new XDomainRequest();
+			    xhr.open(method, url);
+			} else {
+			    // Otherwise, CORS is not supported by the browser.
+			    xhr = null;
+			}
+			return xhr;
 		}
 	};
 
