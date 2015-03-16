@@ -64,9 +64,9 @@ $('document').ready(function() {
 					numKittehs +
 					"&size=med&type=gif",
 				dataType: "xml",
-				/* xhrFields: {
+				xhrFields: {
 					withCredentials: true,
-				}, */
+				},
 				success: function(data) {
 					console.log(data); // for checking response
 					// build our kitteh display area with hidden images
