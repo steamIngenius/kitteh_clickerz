@@ -37,6 +37,11 @@
 	text-shadow: 1px 1px #3D3D3D;
 }
 
+#adminConsole {
+	height: 200px;
+	background-color: gray;
+}
+
 #instructions {
 	font-size: 30px;
 	font-family: 'Luckiest Guy', cursive;
