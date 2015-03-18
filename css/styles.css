@@ -37,9 +37,24 @@
 	text-shadow: 1px 1px #3D3D3D;
 }
 
+#row3 {
+	position: relative;
+	overflow: hidden;
+}
+
+#adminConsoleArea {
+	height: 200px;
+	z-index: 1;
+}
+
 #adminConsole {
 	height: 200px;
 	background-color: gray;
+	z-index: 2;
+	position: absolute;
+	left: 100%;
+	display: block;
+	margin: 0 auto;
 }
 
 #instructions {

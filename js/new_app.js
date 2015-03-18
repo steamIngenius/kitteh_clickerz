@@ -164,14 +164,31 @@ $('document').ready(function() {
 	var viewAdmin = {
 		init: function() {
 			// grab adminConsole div
+			this.adminConsoleArea = $('#adminConsoleArea');
 			this.adminConsole = $('#adminConsole');
 
 			// TODO:
 			// add html elements with correct default values
-			// hook up buttons for open/close/save/cancel
-			// refactor later
+			$("<button id=\"adminButton\">Administration</button>").appendTo(this.adminConsoleArea);
+			$("<button id=\"saveButton\">Save</button>").appendTo(this.adminConsole);
+
+			// hide the actual console
+			// this.adminConsole.addClass('hidden');
+
+			// hook up buttons for open/save/cancel
+			// refactor into render later if needed
+			$('#adminButton').button().click(function(event) {
+				// viewAdmin.adminConsole.toggleClass('hidden');
+				viewAdmin.adminConsole.animate( { left: "66.666666%" }, 1000, "easeOutBounce");
+			});
+
+			$('#saveButton').button().click(function(event) {
+				viewAdmin.adminConsole.animate( { left: "100%" }, 600, "easeInSine" );
+			});
 		},
-		render: function() {}
+		render: function() {
+			// update with correct information
+		}
 	};
 
 /*** AUDIO ***/
