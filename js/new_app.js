@@ -161,6 +161,19 @@ $('document').ready(function() {
 		}
 	};
 
+	var viewAdmin = {
+		init: function() {
+			// grab adminConsole div
+			this.adminConsole = $('#adminConsole');
+
+			// TODO:
+			// add html elements with correct default values
+			// hook up buttons for open/close/save/cancel
+			// refactor later
+		},
+		render: function() {}
+	};
+
 /*** AUDIO ***/
 	var kittehAudio = {
 		init: function() {
@@ -189,8 +202,9 @@ $('document').ready(function() {
 					viewKittehs.init(modelComponent.init(data));
 					// initiallize our current kitteh
 					viewCurrentKitteh.init(numKittehs);
-					// initiallize our scoreboard
+					// initiallize our scoreboard and finally our admin console
 					viewScoreboard.init();
+					viewAdmin.init();
 				}
 			});
 
