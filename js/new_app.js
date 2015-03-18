@@ -38,6 +38,9 @@ $('document').ready(function() {
 			// build our selectable list of kitteh names
 			this.render();
 
+			// first cat selected by default
+			this.kittehList.children(':first').addClass('ui-selected');
+
 			// make the list selectable and attach Octopus for handling select event
 			$(this.kittehList).selectable({
 				selected: function(event, ui) {

@@ -53,6 +53,7 @@
 	margin: 0 auto;
 }
 
+.ui-selected { background: #F39814; color: white; }
 #kittehList .ui-selecting { background: #FECA40; }
 #kittehList .ui-selected { background: #F39814; color: white; }
 #kittehList { list-style-type: none; margin: 0 auto; padding: 0; width: 60%; }
