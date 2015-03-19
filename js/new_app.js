@@ -170,23 +170,36 @@ $('document').ready(function() {
 			// TODO:
 			// add html elements with correct default values
 			$("<button id=\"adminButton\">Administration</button>").appendTo(this.adminConsoleArea);
+
 			$("<button id=\"saveButton\">Save</button>").appendTo(this.adminConsole);
+			$("<button id=\"cancelButton\">Cancel</button>").appendTo(this.adminConsole);
 
 			// hook up buttons for open/save/cancel
 			// refactor into render later if needed
 			$('#adminButton').button().click(function(event) {
-				// viewAdmin.adminConsole.toggleClass('hidden');
-				viewAdmin.adminConsole.animate( { left: "66.666666%" }, 1000, "easeOutBounce");
-				console.log(event);
+				viewAdmin.show();
+				// console.log(event);
 			});
 
 			$('#saveButton').button().click(function(event) {
-				viewAdmin.adminConsole.animate( { left: "100%" }, 600, "easeInSine" );
-				console.log(event);
+				viewAdmin.hide();
+				// console.log(event);
 			});
+
+			$('#cancelButton').button().click(function(event) {
+				viewAdmin.hide();	
+			});
+		},
+		show: function() {
+			this.adminConsole.animate( { left: "66.6666666%" }, 600, "easeOutBounce");
+			this.render();
+		},
+		hide: function() {
+			this.adminConsole.animate({ left:"100%" }, 300, "easeInSine" );
 		},
 		render: function() {
 			// update with correct information
+
 		}
 	};
 
