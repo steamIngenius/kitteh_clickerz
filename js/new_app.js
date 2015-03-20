@@ -183,10 +183,6 @@ $('document').ready(function() {
         	this.adminURL = $("<label for=\"adminURL\">URL: </label><input type=\"text\" id=\"adminURL\" value=\"\">")
         		.appendTo(this.adminConsoleForm);
 
-    		// testing something
-    		this.myspan = $("<span></span>").appendTo(this.adminConsole);
-    		this.myspan.text('Hi');
-
 			// hook up buttons for open/save/cancel
 			// refactor into render later if needed
 			this.adminButton.button().click(function(event) {
@@ -202,6 +198,9 @@ $('document').ready(function() {
 			this.cancelButton.button().click(function(event) {
 				viewAdmin.hide();	
 			});
+
+			// render
+			this.render();
 		},
 		show: function() {
 			this.adminConsole.animate( { left: "66.6666666%" }, 600, "easeOutBounce");
