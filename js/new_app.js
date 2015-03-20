@@ -61,6 +61,8 @@ $('document').ready(function() {
 		init: function(numKittehs) {
 			// get some kitteh images from the Cat API http://thecatapi.com/
 			// add these images to the dom and hide them
+			// this should be refactored into the octopus and the kitteh urls need to be added to their
+			// kitteh objects
 			$.ajax({
 				type: "GET",
 				url: "http://thecatapi.com/api/images/get?format=xml&results_per_page=" +
@@ -211,7 +213,10 @@ $('document').ready(function() {
 		},
 		render: function() {
 			// update with correct information
-
+			var currentKitteh = octopus.getCurrentKitteh();
+			this.adminName.val(currentKitteh.name);
+			this.adminClicks.val(currentKitteh.score);
+			this.adminURL.val();
 		}
 	};
 
