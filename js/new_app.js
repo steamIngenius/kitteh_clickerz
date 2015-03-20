@@ -194,12 +194,12 @@ $('document').ready(function() {
 				// console.log(event);
 			});
 
-			$('#saveButton').button().click(function(event) {
+			this.saveButton.button().click(function(event) {
 				viewAdmin.hide();
 				// console.log(event);
 			});
 
-			$('#cancelButton').button().click(function(event) {
+			this.cancelButton.button().click(function(event) {
 				viewAdmin.hide();	
 			});
 		},

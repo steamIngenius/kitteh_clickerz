@@ -42,7 +42,7 @@
 	font-size: 20px;
 	font-weight: bold;
 	font-family: "Times New Roman";
-	text-shadow: 0 0 0.2em gold, 0 0 0.2em gold, 0 0 0.2em gold;
+	text-shadow: 0 0 0.3em gold, 0 0 0.3em gold, 0 0 0.3em gold;
 	-webkit-transform: rotate(30deg);
 	-ms-transform: rotate(30deg);
 	transform: rotate(30deg);
@@ -56,6 +56,17 @@
 	font-size: 40px;
 	color: silver;
 	text-shadow: 1px 1px #3D3D3D;
+}
+
+.meow {
+	position: absolute;
+	left: 14%;
+	font-size: 28px;
+	font-family: "comic sans ms";
+	color: orange;
+	-webkit-transform: rotate(-30deg);
+	-ms-transform: rotate(-30deg);
+	transform: rotate(-30deg);
 }
 
 #row3 {
