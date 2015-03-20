@@ -168,15 +168,28 @@ $('document').ready(function() {
 			this.adminConsole = $('#adminConsole');
 
 			// TODO:
-			// add html elements with correct default values
-			$("<button id=\"adminButton\">Administration</button>").appendTo(this.adminConsoleArea);
+			// add html elements with correct default values for name, clicks# and url
+			this.adminButton = $("<button id=\"adminButton\">Admin</button>").appendTo(this.adminConsoleArea);
 
-			$("<button id=\"saveButton\">Save</button>").appendTo(this.adminConsole);
-			$("<button id=\"cancelButton\">Cancel</button>").appendTo(this.adminConsole);
+			// my new favorite way to code up HTML and simultaneously make everything available to jQuery/JS
+			// it's really ugly though... kinda makes my eyes cross
+			this.saveButton = $("<button id=\"saveButton\">Save</button>").appendTo(this.adminConsole);
+			this.cancelButton = $("<button id=\"cancelButton\">Cancel</button>").appendTo(this.adminConsole);
+			this.adminConsoleForm = $("<form id=\"adminConsoleForm\" class=\"adminConsoleForm\"></form>").appendTo(this.adminConsole);
+			this.adminName = $("<label for=\"adminName\">Name: </label><input type=\"text\" id=\"adminName\" value=\"\"><br>")
+				.appendTo(this.adminConsoleForm);
+        	this.adminClicks = $("<label for=\"adminClicks\">Clicks: </label><input type=\"text\" id=\"adminClicks\" value=\"\"><br>")
+        		.appendTo(this.adminConsoleForm);
+        	this.adminURL = $("<label for=\"adminURL\">URL: </label><input type=\"text\" id=\"adminURL\" value=\"\">")
+        		.appendTo(this.adminConsoleForm);
+
+    		// testing something
+    		this.myspan = $("<span></span>").appendTo(this.adminConsole);
+    		this.myspan.text('Hi');
 
 			// hook up buttons for open/save/cancel
 			// refactor into render later if needed
-			$('#adminButton').button().click(function(event) {
+			this.adminButton.button().click(function(event) {
 				viewAdmin.show();
 				// console.log(event);
 			});
