@@ -63,6 +63,7 @@ $('document').ready(function() {
 			// add these images to the dom and hide them
 			// this should be refactored into the octopus and the kitteh urls need to be added to their
 			// kitteh objects
+			// the view shouldn't be handling this kind of data operation
 			$.ajax({
 				type: "GET",
 				url: "http://thecatapi.com/api/images/get?format=xml&results_per_page=" +
@@ -79,6 +80,7 @@ $('document').ready(function() {
 					$(data).find('url').each( function(index) {
 						// console.log($(this).text());
 						$('<img class="hidden" data-id="'+index+'" src="'+$(this).text()+'" length="300" width="300">').appendTo($('#currentKitteh > div'));
+						octopus.addURL(index, $(this).text());
 					});
 
 					// grab dom element for the kitteh
@@ -116,6 +118,7 @@ $('document').ready(function() {
 			// $("#tab > div > div") - reference for grabbing child divs for an id
 			// hide all the images then show the correct one
 			// animate this with jQuery UI
+			// currently we load all images in the beginning and show/hide the correct one
 			var kittehs = $('#currentKitteh > div > img');
 			// console.log(kittehs);
 			kittehs.each(function(index) {
@@ -216,7 +219,7 @@ $('document').ready(function() {
 			var currentKitteh = octopus.getCurrentKitteh();
 			this.adminName.val(currentKitteh.name);
 			this.adminClicks.val(currentKitteh.score);
-			this.adminURL.val();
+			this.adminURL.val(currentKitteh.kittehURL);
 		}
 	};
 
@@ -274,6 +277,9 @@ $('document').ready(function() {
 			modelComponent.click();
 			viewCurrentKitteh.shake();
 			viewScoreboard.render();
+		},
+		addURL: function(kitteh, kittehURL) {
+			modelComponent.kittehs[kitteh].kittehURL = kittehURL;
 		}
 	};
 
