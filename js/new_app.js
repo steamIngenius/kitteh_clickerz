@@ -12,7 +12,8 @@ $('document').ready(function() {
 					score: 0,
 					name: data.results[i].user.name.first.capitalizeFirstLetter(),
 					gender: data.results[i].user.gender,
-					hooman: data.results[i].user.picture.thumbnail
+					hooman: data.results[i].user.picture.thumbnail,
+					kittehURL: ""
 				});
 			}
 			console.log(this);
@@ -57,7 +58,7 @@ $('document').ready(function() {
 			for (var i = 0; i < this.kittehs.length; i++) {
 				$('<li class="ui-widget-content" data-id="'+i+'">'+this.kittehs[i].name+'</li>').appendTo(this.kittehList);
 			}
-			// show the correct cat selected FIXME
+			// show the correct cat selected 
 			var someIndex = octopus.getCurrentKittehIndex() + 1;
 			this.kittehList.children(":nth-child("+someIndex+")").addClass('ui-selected');
 		}
@@ -178,7 +179,6 @@ $('document').ready(function() {
 			this.adminConsoleArea = $('#adminConsoleArea');
 			this.adminConsole = $('#adminConsole');
 
-			// TODO:
 			// add html elements with correct default values for name, clicks# and url
 			this.adminButton = $("<button id=\"adminButton\">Admin</button>").appendTo(this.adminConsoleArea);
 
@@ -291,7 +291,9 @@ $('document').ready(function() {
 			modelComponent.kittehs[modelComponent.currentKitteh].name = viewAdmin.adminName[1].value;
 			viewKittehs.render();
 
-			// modelComponent.updateCurrentKitteh(kitteh);
+			modelComponent.kittehs[modelComponent.currentKitteh].kittehURL = viewAdmin.adminURL[1].value;
+			var childIndex = modelComponent.currentKitteh + 1;
+			$("#currentKitteh > div").children(':nth-child('+childIndex+')').attr('src', modelComponent.kittehs[modelComponent.currentKitteh].kittehURL);
 		},
 		click: function() {
 			kittehAudio.meow();
