@@ -58,9 +58,8 @@ $('document').ready(function() {
 				$('<li class="ui-widget-content" data-id="'+i+'">'+this.kittehs[i].name+'</li>').appendTo(this.kittehList);
 			}
 			// show the correct cat selected FIXME
-			var someIndex = octopus.getCurrentKitteh();
-			console.log(this.kittehList);
-			this.kittehList.nth-child(someIndex).addClass('ui-selected');
+			var someIndex = octopus.getCurrentKittehIndex() + 1;
+			this.kittehList.children(":nth-child("+someIndex+")").addClass('ui-selected');
 		}
 	};
 
