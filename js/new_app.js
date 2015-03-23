@@ -24,6 +24,9 @@ $('document').ready(function() {
 		setCurrentKitteh: function(kitteh) {
 			this.currentKitteh = kitteh;
 		},
+		updateCurrentKitteh: function(kitteh) {
+			this.kittehs[currentKitteh] = kitteh;
+		},
 		click: function() {
 			this.kittehs[this.currentKitteh].score++;
 		}
@@ -38,8 +41,6 @@ $('document').ready(function() {
 			// build our selectable list of kitteh names
 			this.render();
 
-			// first cat selected by default
-			this.kittehList.children(':first').addClass('ui-selected');
 
 			// make the list selectable and attach Octopus for handling select event
 			$(this.kittehList).selectable({
@@ -51,9 +52,15 @@ $('document').ready(function() {
 			});
 		},
 		render: function() {
+			// blank out the list and redraw it
+			this.kittehList.html("");
 			for (var i = 0; i < this.kittehs.length; i++) {
 				$('<li class="ui-widget-content" data-id="'+i+'">'+this.kittehs[i].name+'</li>').appendTo(this.kittehList);
 			}
+			// show the correct cat selected FIXME
+			var someIndex = octopus.getCurrentKitteh();
+			console.log(this.kittehList);
+			this.kittehList.nth-child(someIndex).addClass('ui-selected');
 		}
 	};
 
@@ -181,6 +188,7 @@ $('document').ready(function() {
 			this.saveButton = $("<button id=\"saveButton\">Save</button>").appendTo(this.adminConsole);
 			this.cancelButton = $("<button id=\"cancelButton\">Cancel</button>").appendTo(this.adminConsole);
 			this.adminConsoleForm = $("<form id=\"adminConsoleForm\" class=\"adminConsoleForm\"></form>").appendTo(this.adminConsole);
+
 			this.adminName = $("<label for=\"adminName\">Name: </label><input type=\"text\" id=\"adminName\" value=\"\"><br>")
 				.appendTo(this.adminConsoleForm);
         	this.adminClicks = $("<label for=\"adminClicks\">Clicks: </label><input type=\"text\" id=\"adminClicks\" value=\"\"><br>")
@@ -196,6 +204,7 @@ $('document').ready(function() {
 			});
 
 			this.saveButton.button().click(function(event) {
+				octopus.updateCurrentKitteh();
 				viewAdmin.hide();
 				// console.log(event);
 			});
@@ -215,7 +224,7 @@ $('document').ready(function() {
 			this.adminConsole.animate({ left:"100%" }, 300, "easeInSine" );
 		},
 		render: function() {
-			// update with correct information
+			// update fields with correct information
 			var currentKitteh = octopus.getCurrentKitteh();
 			this.adminName.val(currentKitteh.name);
 			this.adminClicks.val(currentKitteh.score);
@@ -257,6 +266,7 @@ $('document').ready(function() {
 				}
 			});
 
+			// set up meows
 			kittehAudio.init();
 
 			String.prototype.capitalizeFirstLetter = function() {
@@ -271,6 +281,18 @@ $('document').ready(function() {
 		},
 		getCurrentKitteh: function () {
 			return modelComponent.getCurrentKitteh();
+		},
+		getCurrentKittehIndex: function() {
+			return modelComponent.currentKitteh;
+		},
+		updateCurrentKitteh: function() {
+			modelComponent.kittehs[modelComponent.currentKitteh].score = viewAdmin.adminClicks[1].value;
+			viewScoreboard.render();
+
+			modelComponent.kittehs[modelComponent.currentKitteh].name = viewAdmin.adminName[1].value;
+			viewKittehs.render();
+
+			// modelComponent.updateCurrentKitteh(kitteh);
 		},
 		click: function() {
 			kittehAudio.meow();
