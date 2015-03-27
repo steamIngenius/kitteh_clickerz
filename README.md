@@ -12,6 +12,6 @@ Kitteh Clickers uses cross-origin requests which may cause problems with your br
 
 To do this in Chrome (from Terminal):
 
-<code>open -a /Applications/Google\ Chrome.app --disable-web-security &</code>
+<code>exec /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security &</code>
 
 [Check out the app on GitHub Pages](http://steamingenius.github.io/kitteh_clickerz)
